@@ -1,0 +1,79 @@
+// myproj.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+using namespace std;
+
+class tree {
+public:
+	int data;
+	tree *left;
+	tree *right;
+	tree() {
+		left = NULL;
+		right = NULL;
+	}
+	tree* create_root(int value);
+	
+};
+tree* tree::create_root(int value) {
+	tree *temp = new tree();
+	temp->data = value;
+	return temp;
+}
+void display_tree(tree *first) {
+	if (!first) {
+		return;
+	}
+	cout << first->data<<endl;
+	display_tree(first->left);
+	display_tree(first->right);
+}
+void insert_element(tree *root, int value) {
+
+	if (value < root->data) {
+		if (root->left == NULL) {
+			tree *temp = new tree();
+			temp->data = value;
+			root->left = temp;
+			return;
+		}
+		else {
+			insert_element(root->left, value);
+		}
+	}
+	else {
+		if (root->right == NULL) {
+			tree *temp = new tree();
+			temp->data = value;
+			root->right = temp;
+			return;
+		}
+		else {
+			insert_element(root->right, value);
+		}
+	}
+}
+
+
+int main()
+{
+	/*	insert_element(tree *root, int value);
+		create_root(int value);
+		display_tree(tree *first);*/
+	tree *root = NULL;
+	root = root->create_root(10);
+	
+	insert_element(root, 12);
+	insert_element(root, 8);
+	insert_element(root, 7);
+	insert_element(root, 9);
+	insert_element(root, 11);
+	insert_element(root, 13);
+	display_tree(root);
+
+
+	getchar();
+	return 0;
+}
