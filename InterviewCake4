@@ -1,0 +1,80 @@
+// myproj.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class meeting {
+public:
+	int startTime;
+	int endTime;
+	//meeting() {}
+	meeting(int x, int y) {
+		startTime = x;
+		endTime = y;
+	}
+	void display() {
+		cout << "(" << startTime << ") , (" << endTime <<")"<< endl;;
+	}
+	
+};
+
+int main() {
+	vector<meeting> v;
+	meeting obj1(0, 1);
+	meeting obj2(3, 5);
+	meeting obj3(4, 8);
+	meeting obj4(10, 12);
+	meeting obj5(9, 10);
+	v.push_back(obj1);
+	v.push_back(obj2);
+	v.push_back(obj3);
+	v.push_back(obj4);
+	v.push_back(obj5);
+
+
+	//DSP
+	cout << "DSP"<<endl;
+	for (int i = 0; i < v.size(); i++) {
+		v[i].display();
+	}
+
+	//SORTING
+	for (int i = 0; i < v.size(); i++) {
+		for (int j = i+1; j < v.size(); j++) {
+			if (v[i].startTime > v[j].startTime && v[i].endTime > v[j].endTime) {
+				swap(v[i], v[j]);
+			}
+		}
+	}
+
+
+/*	//DISPLAY
+	cout << "After Sorting" << endl;
+	for (int i = 0; i < v.size(); i++) {
+		v[i].display();
+	}
+*/
+	
+	//LOGIC
+	for (int i = 0; i<v.size(); i++) {
+		for (int j = i + 1; j < v.size(); j++) {
+			if (v[i].endTime >= v[j].startTime && v[i].endTime < v[j].endTime) {
+				v[i].endTime = v[j].endTime;
+				v.erase(v.begin() + j);
+				break;
+			}
+		}
+	}
+	cout << endl;
+	cout << "After LOGIC" << endl;
+	for (int i = 0; i < v.size(); i++) {
+		v[i].display();
+	}
+
+
+	getchar();
+	return 0;
+}
